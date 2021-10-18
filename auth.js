@@ -1,4 +1,3 @@
-import './style.css'
 
 // firebase 
 import {initializeApp} from 'firebase/app';
@@ -6,14 +5,14 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} fro
 
 
 const firebaseConfig = {
-    // apiKey: "AIzaSyCoO9YcKZJdEpkMsfa51XBqbJz6eMAVW8A",
-    // authDomain: "be-project-94a2e.firebaseapp.com",
-    // databaseURL: "https://be-project-94a2e-default-rtdb.firebaseio.com",
-    // projectId: "be-project-94a2e",
-    // storageBucket: "be-project-94a2e.appspot.com",
-    // messagingSenderId: "504096098693",
-    // appId: "1:504096098693:web:32f6444cbdaf25284e1cec",
-    // measurementId: "G-CKMJ10QJD5"
+    apiKey: "AIzaSyCoO9YcKZJdEpkMsfa51XBqbJz6eMAVW8A",
+    authDomain: "be-project-94a2e.firebaseapp.com",
+    databaseURL: "https://be-project-94a2e-default-rtdb.firebaseio.com",
+    projectId: "be-project-94a2e",
+    storageBucket: "be-project-94a2e.appspot.com",
+    messagingSenderId: "504096098693",
+    appId: "1:504096098693:web:32f6444cbdaf25284e1cec",
+    measurementId: "G-CKMJ10QJD5"
 };
 
 
@@ -41,7 +40,7 @@ if (signUpButton != null){
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        // document.getElementById('welcomePageLink').click();
+        window.location.replace("/welcome.html")
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -50,6 +49,22 @@ if (signUpButton != null){
     }
 }
 
+// for login
+if (loginButton != null){
+    loginButton.onclick = () => {
+        const email = loginEmail.value
+        const password = loginPassword.value
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        const user = userCredential.user;
+        window.location.replace("/home.html");
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage =error.message;
+    });
+    }
+}
 
 
 
