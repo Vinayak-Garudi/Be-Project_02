@@ -23,6 +23,14 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
 // get element by id for signup
+let signupName = document.getElementById('signupName');
+let signupAge = document.getElementById('signupAge');
+// gender
+// let signupGender = document.getElementById('signupGender');
+let signupCountry = document.getElementById('signupCountry');
+let signupState = document.getElementById('signState');
+let signupCity = document.getElementById('signupCity');
+let signpPhoneNumber = document.getElementById('signpPhoneNumber');
 let signupEmail = document.getElementById('signupEmail');
 let signupPassword = document.getElementById('signupPassword');
 let signUpButton = document.getElementById('signupButton');
@@ -37,10 +45,26 @@ if (signUpButton != null){
     signUpButton.onclick = () => {
         const email = signupEmail.value
         const password = signupPassword.value
+        console.log(email,password);
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        window.location.replace("/welcome.html")
+        console.log(user);
+        console.log("user regestration done!!");
+
+        const userProfile = {
+            userName: signupName.value,
+            age: signupAge.value,
+            country: signupCountry,
+            city: signupCity,
+            phoneNumber: signpPhoneNumber.value
+        }
+
+        const UserData = doc(collection(db, "userProfile"), user.uid);
+        setDoc(UserData, userProfiule).then(()=>{
+            window.location.replace("/welcome.html");
+        });
+        
     })
     .catch((error) => {
         const errorCode = error.code;
