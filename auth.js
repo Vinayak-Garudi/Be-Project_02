@@ -1,7 +1,10 @@
 
 // firebase 
-import {initializeApp} from 'firebase/app';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
+import {getFirestore, collection, doc, setDoc, updateDoc , deleteField, getDoc, Timestamp } from "firebase/firestore"; 
 
 
 const firebaseConfig = {
@@ -22,6 +25,8 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
+const db = getFirestore(app);
+
 // get element by id for signup
 let signupName = document.getElementById('signupName');
 let signupAge = document.getElementById('signupAge');
@@ -30,7 +35,7 @@ let signupAge = document.getElementById('signupAge');
 let signupCountry = document.getElementById('signupCountry');
 let signupState = document.getElementById('signState');
 let signupCity = document.getElementById('signupCity');
-let signpPhoneNumber = document.getElementById('signpPhoneNumber');
+let signupPhoneNumber = document.getElementById('signpPhoneNumber');
 let signupEmail = document.getElementById('signupEmail');
 let signupPassword = document.getElementById('signupPassword');
 let signUpButton = document.getElementById('signupButton');
@@ -55,13 +60,16 @@ if (signUpButton != null){
         const userProfile = {
             userName: signupName.value,
             age: signupAge.value,
-            country: signupCountry,
-            city: signupCity,
-            phoneNumber: signpPhoneNumber.value
+            country: signupCountry.value,
+            city: signupCity.value,
+            phoneNumber: signupPhoneNumber.value
         }
 
+        console.log(userProfile);
+
         const UserData = doc(collection(db, "userProfile"), user.uid);
-        setDoc(UserData, userProfiule).then(()=>{
+        setDoc(UserData, userProfile).then(()=>{
+            console.log("Done",userProfile);
             window.location.replace("/welcome.html");
         });
         
@@ -69,6 +77,7 @@ if (signUpButton != null){
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorMessage);
     });
     }
 }

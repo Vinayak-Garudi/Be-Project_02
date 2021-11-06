@@ -13,9 +13,11 @@
         </center>
 
         <script>
-            continueButton.onClick = () => {
-                window.location.replace("/preference.js")
-            }
+
+            document.getElementById('continueButton').addEventListener("click", ()=>{
+                window.location.replace("/preference.html")
+            })
+            
         </script>
     </body>
 </html>
